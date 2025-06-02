@@ -1,6 +1,7 @@
 import QuestionInput from '@/components/QuestionComponents/QuestionInput'
 import QuestionRadio from '@/components/QuestionComponents/QuestionRadio'
 import Head from 'next/head'
+import styles from '@/styles/Question.module.scss'
 
 type PropsType = {
   id: string
@@ -15,17 +16,26 @@ export default function Question(props: PropsType) {
       <h1>Question page</h1>
       <p>{props.id}</p>
 
-      <form action="">
-        <QuestionInput fe_id='c1' props={{ title: '你的姓名', placeholder: '请输入' }}></QuestionInput>
-        <QuestionRadio fe_id='c2' props={{
-          title: '你的性别',
-          options: [
-            { value: 'male', text: '男' },
-            { value: 'female', text: '女' },
-          ],
-          value: 'male',
-          isVertical: false
-          }}></QuestionRadio>
+      <form method='post' action="/api/answer">
+        <input type='hidden' name='quetionId' defaultValue={props.id} />
+        <div className={styles.componentWrapper}>
+          <QuestionInput fe_id='c1' props={{ title: '你的姓名', placeholder: '请输入' }}></QuestionInput>
+        </div>
+        <div className={styles.componentWrapper}>
+          <QuestionRadio fe_id='c2' props={{
+            title: '你的性别',
+            options: [
+              { value: 'male', text: '男' },
+              { value: 'female', text: '女' },
+            ],
+            value: 'male',
+            isVertical: false
+            }}></QuestionRadio>
+        </div>
+        <div className={styles.submitBtnContainer}>
+          {/* <input type="submit" value='提交' /> */}
+          <button type='submit'>提交</button>
+        </div>
       </form>
     </main>
   </>

@@ -1,8 +1,11 @@
+.componentWrapper {
+  border-bottom: 1px solid #f1f1f1;
+}
 .inputWrapper {
   margin-bottom: 16px;
   padding: 0 5px;
 
-  input {
+  button {
     width: 100%;
     border: 1px solid #d8d8d8;
     border-radius: 3px;

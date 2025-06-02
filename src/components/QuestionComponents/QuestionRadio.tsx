@@ -18,7 +18,7 @@ type PropsType = {
 const QuestionRadio: FC<PropsType> = ({ fe_id, props }) =>{
   const { title, options = [], value, isVertical } = props
   return <>
-    <p>title</p>
+    <p>{title}</p>
     <ul className={styles.list}>
       {options.map(opt => {
         const { value: val, text } = opt
