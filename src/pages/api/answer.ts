@@ -4,6 +4,22 @@ import type { NextApiRequest, NextApiResponse } from "next";
 //   name: string;
 // };
 
+function genAnswerInfo(reqBody: any) {
+  const answerList: any[] = []
+
+  Object.keys(reqBody).forEach(key => {
+    if (key == 'questionId') return
+    answerList.push({
+      componentId: key,
+      value: reqBody[key]
+    })
+  })
+  return {
+    questionId: reqBody.questionId || '',
+    answerList
+  }
+}
+
 export default function handler(
   req: NextApiRequest,
   res: NextApiResponse,
@@ -15,7 +31,21 @@ export default function handler(
     res.status(200).json({ errno: -1, msg: 'Method 错误' })
   }
 
-  console.log('req.body', req.body)
+  const answerInfo = genAnswerInfo(req.body)
+  console.log('answerInfo', answerInfo)
+  // 提交到服务端 Mock
 
-  res.status(200).json({ errno: 0 })
+  try {
+    // 提交到服务端 Mock
+
+    // 如果提交成功
+    res.redirect('/success')
+
+    // 提交失败
+    // res.redirect('/fail')
+  } catch (error) {
+    
+  }
+
+  // res.status(200).json({ errno: 0 })
 }
