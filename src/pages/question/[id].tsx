@@ -2,19 +2,20 @@ import QuestionInput from '@/components/QuestionComponents/QuestionInput'
 import QuestionRadio from '@/components/QuestionComponents/QuestionRadio'
 import Head from 'next/head'
 import styles from '@/styles/Question.module.scss'
+import PageWrapper from "@/components/PageWrapper";
 
 type PropsType = {
   id: string
 }
 
 export default function Question(props: PropsType) {
-  return <>
-    <Head>
+  return <PageWrapper title='question'>
+    {/* <Head>
       <title>Question</title>
-    </Head>
-    <main>
-      <h1>Question page</h1>
-      <p>{props.id}</p>
+    </Head> */}
+    {/* <main> */}
+      {/* <h1>Question page</h1>
+      <p>{props.id}</p> */}
 
       <form method='post' action="/api/answer">
         <input type='hidden' name='quetionId' defaultValue={props.id} />
@@ -37,6 +38,6 @@ export default function Question(props: PropsType) {
           <button type='submit'>提交</button>
         </div>
       </form>
-    </main>
-  </>
+    {/* </main> */}
+  </PageWrapper>
 }

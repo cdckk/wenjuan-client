@@ -1,4 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
+import { postAnswer } from "@/services/answer";
 
 // type Data = {
 //   name: string;
@@ -20,7 +21,7 @@ function genAnswerInfo(reqBody: any) {
   }
 }
 
-export default function handler(
+export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
@@ -31,20 +32,23 @@ export default function handler(
     res.status(200).json({ errno: -1, msg: 'Method 错误' })
   }
 
+  // 获取并格式化表单数据
   const answerInfo = genAnswerInfo(req.body)
-  console.log('answerInfo', answerInfo)
-  // 提交到服务端 Mock
 
+  // 和外部系统进行对接，不受自己控制的服务时最好用try/catch包一下
   try {
     // 提交到服务端 Mock
-
-    // 如果提交成功
-    res.redirect('/success')
-
-    // 提交失败
-    // res.redirect('/fail')
+    const resData = await postAnswer(answerInfo)
+    console.log('resData...', resData)
+    if (resData.errno === 0) {
+      // 如果提交成功
+      res.redirect('/success')
+    } else {
+      // 提交失败
+      res.redirect('/fail')
+    }
   } catch (error) {
-    
+    res.redirect('/fail')
   }
 
   // res.status(200).json({ errno: 0 })
