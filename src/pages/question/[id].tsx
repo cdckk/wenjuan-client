@@ -4,6 +4,7 @@ import Head from 'next/head'
 import styles from '@/styles/Question.module.scss'
 import PageWrapper from "@/components/PageWrapper";
 import { getQuestionById } from '@/services/question'
+import { getComponent } from '@/components/QuestionComponents/index'
 
 type PropsType = {
   // id: string
@@ -50,6 +51,18 @@ export default function Question(props: PropsType) {
     </PageWrapper>
   }
 
+  // 遍历组件
+  const ComponentListElem = <>
+    {
+      componentList.map(c => {
+        const ComponentElem = getComponent(c)
+        return <div key={c.fe_id} className={styles.componentWrapper}>
+          {ComponentElem}
+        </div>
+      })
+    }
+  </>
+
   return <PageWrapper title={title} desc={desc}>
     {/* <Head>
       <title>Question</title>
@@ -60,10 +73,13 @@ export default function Question(props: PropsType) {
 
       <form method='post' action="/api/answer">
         <input type='hidden' name='quetionId' defaultValue={id} />
-        <div className={styles.componentWrapper}>
+        {/* <div className={styles.componentWrapper}>
           <QuestionInput fe_id='c1' props={{ title: '你的姓名', placeholder: '请输入' }}></QuestionInput>
-        </div>
-        <div className={styles.componentWrapper}>
+        </div> */}
+
+        {ComponentListElem}
+
+        {/* <div className={styles.componentWrapper}>
           <QuestionRadio fe_id='c2' props={{
             title: '你的性别',
             options: [
@@ -73,7 +89,7 @@ export default function Question(props: PropsType) {
             value: 'male',
             isVertical: false
             }}></QuestionRadio>
-        </div>
+        </div> */}
         <div className={styles.submitBtnContainer}>
           {/* <input type="submit" value='提交' /> */}
           <button type='submit'>提交</button>
