@@ -10,7 +10,7 @@ type PropsType = {
   // id: string
   errno: number,
   data?: {
-    id: string
+    _id: string
     title: string
     desc?: string
     js?: string
@@ -33,7 +33,8 @@ export default function Question(props: PropsType) {
     </PageWrapper>
   }
 
-  const { id, title = '', desc = '', isDeleted, isPublished, componentList = [] } = data || {}
+  // _id重命名
+  const { _id: id, title = '', desc = '', isDeleted, isPublished, componentList = [] } = data || {}
 
   // 已经被删除，提示错误
   if (isDeleted) {
@@ -72,7 +73,7 @@ export default function Question(props: PropsType) {
       <p>{props.id}</p> */}
 
       <form method='post' action="/api/answer">
-        <input type='hidden' name='quetionId' defaultValue={id} />
+        <input type='hidden' name='questionId' value={id} />
         {/* <div className={styles.componentWrapper}>
           <QuestionInput fe_id='c1' props={{ title: '你的姓名', placeholder: '请输入' }}></QuestionInput>
         </div> */}
